@@ -1,0 +1,18 @@
+- name: Install Docker on EC2 instance
+  hosts: all
+  become: true
+  tasks:
+    - name: Update yum cache
+      ansible.builtin.yum:
+        update_cache: yes
+
+    - name: Install Docker
+      ansible.builtin.yum:
+        name: docker
+        state: present
+
+    - name: Start Docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
